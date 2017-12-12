@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+<head>
+    <title>Train Schedule</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+    <div class="container" id="main">
+        <div class="row" id="header">
+            <div class="col-xs-12">
+                <div class="jumbotron">
+                    <h1 id="jumbo-h1">Current Train Schedule</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+
+                    <div class="panel-heading">Schedule</div>
+
+
+                    <div class=train-schedule>
+                        <table class="schedule">
+
+                            <thead>
+                                <tr>
+                                    <th>Train Name</th>
+                                    <th>Destination</th>
+                                    <th>Frequency (Minutes)</th>
+                                    <th>Next Arrival</th>
+                                    <th>Minutes Away</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr>
+
+                                    <td>bob</td>
+                                    <td>ex1</td>
+                                    <td>ex2</td>
+                                </tr>
+                                <tr>
+                                    <td>ex</td>
+                                    <td>boop</td>
+                                </tr>
+                                <tr>
+                                    <td>ex</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <b>Add Train</b>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            <b>Train Name</b>
+                        </p>
+                        <div class="input-group">
+                            <input id="newTrain" type="text" class="form-control" aria-describedby="sizing-addon2" size=150>
+                        </div>
+                        <br>
+                        <p>
+                            <b>Destination</b>
+                        </p>
+                        <div class="input-group">
+                            <input id="destination-input" type="text" class="form-control" aria-describedby="sizing-addon2" size=150>
+                        </div>
+                        <br>
+                        <p>
+                            <b>First Arrival (HH:mm Military Time)</b>
+                        </p>
+                        <div class="input-group">
+                            <input id="time-input" type="text" class="form-control" aria-describedby="sizing-addon2" size=150>
+                        </div>
+                        <br>
+                        <p>
+                            <b>Frequency</b>
+                        </p>
+                        <div class="input-group">
+                            <input id="frequency-input" type="text" class="form-control" aria-describedby="sizing-addon2" size=150>
+                        </div>
+                        <br>
+                        <button id="submit-button" type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/locale/af.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyBKoi5cYHhNRWR_C_Km3jbs7muZQwR6TJk",
+            authDomain: "my-awesome-project-a6b2d.firebaseapp.com",
+            databaseURL: "https://my-awesome-project-a6b2d.firebaseio.com",
+            projectId: "my-awesome-project-a6b2d",
+            storageBucket: "my-awesome-project-a6b2d.appspot.com",
+            messagingSenderId: "809098362190"
+        };
+        firebase.initializeApp(config);
+        var database = firebase.database();
+
+        $("#submit-button").on("click", function () {
+            event.preventDefault();
+            console.log("this button is working");
+            var newTrain = $("#newTrain").val().trim();
+            var destination = $("#desination-input").val().trim();
+            var arrival = $("#time-input").val().trim();
+            var frequency = $("#frequency-input").val().trim();  
+
+            var train = {
+                name: newTrain,
+                destination: destination,
+                arrival: arrival,
+                frequency: frequency
+            }
+            database.ref().push(train);
+            alert("Train successfully added");
+
+            $(".form-control").val("");
+        });
+
+
+        </script>
+
+        </body>
+
+        </html>
